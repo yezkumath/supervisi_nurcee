@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { POST_LOGIN, GET_EMPLOYEE_BY_NIP } from "@/app/api/api"
 import {
@@ -13,20 +13,30 @@ import {
 import Image from "next/image";
 import { Input } from "@/components/ui/input"
 import toast, { Toaster } from 'react-hot-toast';
-
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const loginData = localStorage.getItem("loginData");
+    if (loginData) {
+      router.push("/dashboard");
+      return;
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevents page reload on form submission
     setLoading(true);
     try {
       const loginData = await POST_LOGIN(username, password);
-      if (loginData.Code === 200) {
+      console.log("logindata", loginData);
+      if (loginData.Code === '200') {
         const userData = loginData.Data;
         localStorage.setItem("loginData", JSON.stringify({ userData }));
         const detailLogin = await GET_EMPLOYEE_BY_NIP(userData.nip);
@@ -39,7 +49,6 @@ export default function Home() {
         toast.error(loginData.Message);
         setPassword("");
       }
-
     }
     catch (error) {
       console.error("Error:", error);

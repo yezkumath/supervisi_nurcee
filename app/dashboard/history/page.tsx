@@ -40,11 +40,14 @@ import { Input } from "@/components/ui/input"
 
 export default function Page() {
     const [date, setDate] = useState<Date | undefined>(new Date());
+
     const [listData, setListData] = useState<ListDataSupervisi[]>([]);
     const [detailList, setDetailList] = useState<DetailSupervisi[]>([]);
     const [isClicked, setIsClicked] = useState<number | null>(null);
     const [isLoadingList, setIsLoadingList] = useState<boolean>(false);
     const [isLoadingDetail, setIsLoadingDetail] = useState<boolean>(false);
+    const [open, setOpen] = useState(false);
+
 
     const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -104,6 +107,7 @@ export default function Page() {
         }
     }, [date]);
 
+
     const handleDetilData = async (listData: ListDataSupervisi, index: number) => {
         try {
             // Reset detail list data and set loading state
@@ -120,6 +124,7 @@ export default function Page() {
                 console.error("Error: No detail result returned");
                 setDetailList([]);
             }
+            setOpen(false)
         } catch (error) {
             console.error("Error:", error);
             setDetailList([]);
@@ -169,7 +174,7 @@ export default function Page() {
 
     return (
         <div className="w-screen h-screen">
-            <div className="flex items-center justify-between bg-amber-400 rounded-lg ml-5 mr-5 mt-3">
+            <div className="flex items-center bg-amber-400 rounded-lg ml-5 mr-5 mt-3">
                 <SidebarTrigger className="ml-1 text-white" />
                 <h1 className="text-center font-bold text-white text-2xl flex-grow">
                     HISTORY SUPERVISI
@@ -178,54 +183,51 @@ export default function Page() {
 
 
 
-            <div className="flex justify-between">
-                <Popover>
-                    <PopoverTrigger className="ml-5 border-2 border-yellow-300 text-white bg-yellow-300 font-semibold rounded-lg mt-2 ml-5 w-44">Pilih Tanggal</PopoverTrigger>
-                    <PopoverContent className="w-[1150px]">
-                        <div className="flex">
+            <div className="flex flex-wrap">
+                <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger className=" border-2 border-yellow-300 text-white bg-yellow-300 font-semibold rounded-lg ml-5 mr-5 mt-5 w-44">Pilih Tanggal</PopoverTrigger>
+                    <PopoverContent className="md:w-full ld:w-full  w-[390px] m-2">
+                        <div className="flex flex-wrap justify-center md:justify-normal ld:justify-normal">
                             <Calendar
                                 mode="single"
                                 selected={date}
                                 onSelect={setDate}
                             />
-                            <div className="bg-slate-200 w-1 "></div>
+                            <div className="bg-slate-200 md:w-1 ld:w-1 w-0 "></div>
 
                             <div className=" ml-2">
                                 {isLoadingList ? (
                                     <img src="/images/loading.gif" alt="Loading..." />
                                 ) : listData.length > 0 ? (
-                                    <div className="h-[500px] overflow-x-auto w-[850px]">
+                                    <div className="h-[300px] overflow-x-auto ">
                                         <Table>
                                             <TableHeader>
                                                 <TableRow>
-                                                    <TableHead className="w-10 text-center">No</TableHead>
-                                                    <TableHead className="w-40 text-center">TANGGAL</TableHead>
-                                                    <TableHead className="w-20 text-center">RUANG</TableHead>
-                                                    <TableHead className="w-40 text-center">SUPERVISI</TableHead>
+                                                    <TableHead className="w-5 text-center">No</TableHead>
+                                                    <TableHead className="w-24 md:w-full ld:w-full text-center">RUANG</TableHead>
+                                                    <TableHead className="text-center">SUPERVISI</TableHead>
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
                                                 {listData.map((list, index) => (
                                                     <TableRow key={index}>
-                                                        <TableCell className="w-10 text-center" >{index + 1}.</TableCell>
-                                                        <TableCell className="w-40 text-center">
-                                                            {new Date(list.tanggal).toLocaleDateString('en-CA')}
-                                                        </TableCell>
-                                                        <TableCell className="w-52 text-center">{list.ruang_lengkap}</TableCell>
-                                                        <TableCell className="w-40 text-center">{list.supervisi}</TableCell>
+                                                        <TableCell className="text-center" >{index + 1}.</TableCell>
+                                                        <TableCell className=" text-center">{list.ruang_lengkap}</TableCell>
+                                                        <TableCell className=" text-center">{list.supervisi}</TableCell>
                                                         <TableCell className="flex">
+
                                                             <Button
                                                                 onClick={() => handleDetilData(list, index)}
-                                                                className={isClicked === index ? 'bg-slate-300' : 'bg-yellow-300'}
+                                                                className={isClicked === index ? 'bg-slate-300 w-10' : 'bg-yellow-300 w-10'}
 
                                                             >
-                                                                Open
+                                                                <p className='text-xs font-bold'>Open</p>
                                                             </Button>
                                                             <Button
                                                                 className="bg-blue-300 ml-2"
                                                                 onClick={() => handleDownloadExcel(list)}
                                                             >
-                                                                Download Excel
+                                                                <p className='text-xs font-bold'>Download <br />Excel</p>
                                                             </Button>
                                                         </TableCell>
                                                     </TableRow>
@@ -234,7 +236,7 @@ export default function Page() {
                                         </Table>
                                     </div>
                                 ) : (
-                                    <div>No Data</div>
+                                    <div className='m-2'>Tidak ada data yang tersedia <br />pada tanggal yang anda pilih</div>
 
                                 )}
                             </div>
@@ -243,7 +245,7 @@ export default function Page() {
                 </Popover>
 
                 <Input
-                    className="w-44 mt-5"
+                    className="w-96 ml-5 mr-5 mt-5"
                     placeholder="Search"
                     value={searchTerm}
                     onChange={(e) => {
@@ -252,7 +254,7 @@ export default function Page() {
                     }}
                 />
                 <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value)}>
-                    <SelectTrigger className="w-[180px] mt-5 border-grey-700 border-2">
+                    <SelectTrigger className="w-[180px] ml-5 mr-5 mt-5 border-grey-700 border-2">
                         <SelectValue placeholder="Pilih Kategori" />
                     </SelectTrigger>
                     <SelectContent>
@@ -260,14 +262,14 @@ export default function Page() {
                             <SelectLabel>Kategori</SelectLabel>
                             <SelectItem value="Complain" className="border-l-8 border-red-400">Complain</SelectItem>
                             <SelectItem value="Fasilitas" className="border-l-8 border-blue-400">Fasilitas</SelectItem>
-                            <SelectItem value="Pasien4hari" className="border-l-8 border-green-400">Pasient &lt; 4 hari</SelectItem>
+                            <SelectItem value="Pasien4hari" className="border-l-8 border-green-400">Pasient &gt; 4 hari</SelectItem>
                             <SelectItem value="All" className="border-l-8">Semua Kategori</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
 
                 {/* Select Rows Per Page */}
-                <div className="flex items-center space-x-2 mr-5 text-sm">
+                <div className="flex items-center space-x-2 ml-5 mr-5 mt-5 text-sm">
                     <p> Jumlah Maxsimal baris dalam 1 halaman</p>
                     <Select
                         value={rowsPerPage.toString()}
@@ -290,7 +292,7 @@ export default function Page() {
             </div>
 
 
-            <div className="h-4/5 m-2 overflow-y-auto rounded-md">
+            <div className="h-4/5 m-2 overflow-y-auto rounded-md border-2">
                 {isLoadingDetail ? (
                     <img src="/images/loading.gif" alt="Loading..." />
                 ) : filteredList.length > 0 ? (
@@ -337,7 +339,7 @@ export default function Page() {
                         </TableBody>
                     </Table>
                 ) : (
-                    <div>No Data</div>
+                    <div className='m-5'>No Data</div>
                 )}
             </div>
             <div></div>

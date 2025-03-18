@@ -58,6 +58,7 @@ export async function POST_TOKEN() {
         });
         
         const data = await response.json();
+        console.log(data);
         return data;
       
   }

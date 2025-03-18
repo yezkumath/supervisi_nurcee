@@ -33,7 +33,7 @@ const chartConfig = {
         color: "hsl(var(--chart-2))",
     },
     Pasien4hari: {
-        label: "Pasien<4hari",
+        label: "Pasien>4hari",
         color: "hsl(var(--chart-4))",
     },
 } satisfies ChartConfig
@@ -101,7 +101,7 @@ export default function Page() {
                     HALAMAN RADAR CHART
                 </h1>
             </div>
-            <Card className="w-5/12 h-7/12 m-5">
+            <Card className="m-5">
                 <CardHeader className="items-center pb-4">
                     <CardTitle>Ruangan Category Analysis</CardTitle>
                     <CardDescription>
@@ -143,7 +143,7 @@ export default function Page() {
                                 strokeWidth={2}
                             />
                             <Radar
-                                name="Pasien <4hari"
+                                name="Pasien > 4hari"
                                 dataKey="Pasien4hari"
                                 fill="var(--color-Pasien4hari)"
                                 fillOpacity={0}

@@ -40,6 +40,7 @@ export default function Page() {
     const [ruang, setRuang] = useState<string>("");
     const [nip, setNIP] = useState("");
     const [jumlahPasient, setJumlahPasient] = useState("");
+    const [jumlahPerawat, setJumlahPerawat] = useState("");
     const [input, setInput] = useState("");
     const [category, setCategory] = useState("");
     const [isCatComplain, setIsCatComplain] = useState(false);
@@ -115,7 +116,7 @@ export default function Page() {
 
     const updateAutosave = (ques: { text: string; cat: string }[]) => {
         console.log("updateAutosave", ques);
-        const formData = { nip, ruang, jumlahPasient, questions: ques };
+        const formData = { nip, ruang, jumlahPasient, jumlahPerawat, questions: ques };
         localStorage.setItem("autosaveSupervisi", JSON.stringify({ formData }));
     };
 
@@ -169,7 +170,7 @@ export default function Page() {
 
     const handleSubmit = async () => {
         if (ruang) {
-            if (jumlahPasient) {
+            if (jumlahPasient && jumlahPerawat) {
                 // Retrieve the data from local storage
                 const save = localStorage.getItem("autosaveSupervisi");
                 if (!save) {
@@ -189,27 +190,33 @@ export default function Page() {
                 const { jumlahPasient, nip, ruang, questions } = getSaveData.formData;
 
                 const _jumlahPasient = "Jumlah Pasient " + jumlahPasient;
+                const _jumlahPerawat = "Jumlah Perawat " + jumlahPerawat;
 
                 // Post the main data first
-                try {
+                const saveDataPromise = async () => {
                     await POST_SUPERVISI(_jumlahPasient, nip, ruang, "Jumlah Pasient");
+                    await POST_SUPERVISI(_jumlahPerawat, nip, ruang, "Jumlah Perawat");
                     for (let i = 0; i < questions.length; i++) {
                         const _supervisi = questions[i]; // Correct reference
                         await POST_SUPERVISI(_supervisi.text, nip, ruang, _supervisi.cat);
                     }
-
-                    toast.success("SUCCESS SAVE");
                     localStorage.removeItem("autosaveSupervisi");
                     setRuang("");
                     setJumlahPasient("");
                     setQuestions([]);
-                } catch (error) {
-                    toast.error('Error saving data');
-                    console.error('Error saving data:', error);
+                    return "Data saved successfully";
                 }
+                toast.promise(
+                    saveDataPromise(),
+                    {
+                        loading: 'Proses Saving...',
+                        success: 'SUCCESS SAVE',
+                        error: 'Error saving data',
+                    }
+                );
             }
             else {
-                toast.error("Jumlah Pasien Harus di inputkan");
+                toast.error("Jumlah Pasien dan Perawat Harus di inputkan");
             }
         } else {
             toast.error("Ruangan Harus diinputkan");
@@ -224,6 +231,7 @@ export default function Page() {
     return (
 
         <div className="space-y-3 h-[98vh] flex w-screen flex-col ">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <Toaster position="top-center" />
             <div className="flex items-center justify-between bg-blue-500 rounded-lg ml-5 mr-5 mt-3">
                 <SidebarTrigger className="ml-1 text-white" />
@@ -233,7 +241,7 @@ export default function Page() {
             </div>
             <div className="flex space-x-1">
 
-                <div className="rounded-lg flex border-2 w-full ml-5 mr-5">
+                <div className="rounded-lg flex  flex-wrap border-2 w-full ml-5 mr-5">
                     <div className="w-80 mt-2 ml-2 mr-2 mb-2">
                         <p>Pilih lokasi ruangan</p>
                         <Select
@@ -267,17 +275,29 @@ export default function Page() {
                             }}
                         />
                     </div>
+                    <div className="w-80 mt-2 ml-2 mr-2 mb-2 ">
+                        <p className="mr-2">JUMLAH PERAWAT / SDM HARI INI</p>
+                        <Input
+                            type="number"
+                            placeholder="00"
+                            className="border-blue-700 border-2 w-[315px]"
+                            value={jumlahPerawat}
+                            onChange={(e) => {
+                                setJumlahPerawat(e.target.value);
+                            }}
+                        />
+                    </div>
                 </div>
 
 
             </div>
             <div className=" rounded-lg w-full mr-7">
-                <p className="text-center font-bold text-amber-400 mt-3 text-2xl">KEJAIN DI RUANGAN HARI INI</p>
+                <p className="text-center font-bold text-amber-400 mt-3 text-2xl">KEJADIAN DI RUANGAN HARI INI</p>
                 <p className="text-left ml-2">*Kejadian dipisah berdasarkan poin masalahnya</p>
                 <div className="flex">
                     <Button className=" m-2 bg-red-400" onClick={handleComplainClick}>Complain</Button>
                     <Button className=" m-2 bg-blue-400" onClick={handleFasilitasClick} >Fasilitas</Button>
-                    <Button className=" m-2 bg-green-400" onClick={handlePasien4hariClick}>Pasient &lt; 4 hari</Button>
+                    <Button className=" m-2 bg-green-400" onClick={handlePasien4hariClick}>Pasient &gt; 4 hari</Button>
                 </div>
                 <div className="flex justify-between justify-center items-center">
                     <Textarea
@@ -285,7 +305,7 @@ export default function Page() {
                         value={input}
                         onChange={handleInputChange}  // Bind the input to state
                     />
-                    <Button className="mr-6" onClick={handleAddQuestion}>
+                    <Button className="mr-6 ml-3" onClick={handleAddQuestion}>
                         Add
                     </Button>
                 </div>
