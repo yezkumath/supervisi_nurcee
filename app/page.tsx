@@ -55,9 +55,55 @@ export default function Home() {
     }
   }
   return (
-    <div style={{ backgroundImage: "url('/images/bg_login-singup.png')", backgroundSize: "cover" }} className={`h-screen w-screen flex ${loading ? "cursor-wait" : ""}`}>
+    <div style={{ backgroundImage: "url('/images/bg_login-singup.png')", backgroundSize: "cover" }} className={`h-screen w-screen flex flex-col ${loading ? "cursor-wait" : ""}`}>
       <Toaster position="top-center" />
-      <div className="w-1/2">
+
+      <div className="md:w-5/12 w-6/12 m-6 md:mt-10 md:ml-48">
+        <Image src="/images/logo-long.png" alt="logo" width={900} height={50} />
+      </div>
+      <div className="flex flex-wrap justify-center md:justify-normal">
+        <div className="md:ml-40 ml-8">
+          <p className="md:mt-9 md:text-4xl text-2xl font-bold">SELAMAT DATANG</p>
+          <p className="md:text-2xl font-bold text-orange-400">Sistem Informasi Supervisi Keperawatan <br />RS. Elisabeth Semarang</p>
+          <p className="mt-10 md:text-xl  font-bold italic text-slate-500">&quot;Pancaran Cintanya<br />Menyembuhkan Derita Sesama&quot;</p>
+        </div>
+        <div className="md:ml-40 md:mt-0 mt-10">
+          <Card className="md:w-[600px] w-80 bg-yellow-50 border-blue-300">
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                Supervisi Keperawatan
+              </CardTitle>
+              <CardDescription className="text-sky-600 font-bold text-3xl">
+                SSO Log-in
+              </CardDescription >
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p>Masukkan Nomor Induk Pegawai</p>
+              <Input placeholder="NIP"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="bg-white"
+              />
+              <p>Masukkan Password</p>
+              <Input placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-white"
+              />
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full"
+                onClick={handleSubmit}
+              >Masuk</Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
+
+
+
+      {/* <div className="w-1/2">
         <div className="mt-32 ml-16">
           <Image src="/images/logo-long.png" alt="logo" width={900} height={0} />
           <p className="mt-9 text-4xl font-bold">SELAMAT DATANG</p>
@@ -96,7 +142,7 @@ export default function Home() {
             >Masuk</Button>
           </CardFooter>
         </Card>
-      </div>
+      </div> */}
     </div >
   );
 }
