@@ -55,14 +55,21 @@ export default function Home() {
     }
   }
   return (
-    <div style={{ backgroundImage: "url('/images/bg_login-singup.png')", backgroundSize: "cover" }} className={`h-screen w-screen flex flex-col ${loading ? "cursor-wait" : ""}`}>
+    <div style=
+      {{
+        backgroundImage: "url('/images/bg_login-singup.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "58% 100%",
+        backgroundRepeat: "no-repeat"
+      }}
+      className={`h-screen w-screen flex flex-col  ${loading ? "cursor-wait" : ""}`}>
       <Toaster position="top-center" />
-
-      <div className="md:w-5/12 w-6/12 m-6 md:mt-10 md:ml-48">
-        <Image src="/images/logo-long.png" alt="logo" width={900} height={50} />
-      </div>
-      <div className="flex flex-wrap justify-center md:justify-normal">
-        <div className="md:ml-40 ml-8">
+      <div className="flex flex-wrap justify-center md:mt-10 mt-5">
+        <div className="md:w-4/12 m-6">
+          <Image src="/images/logo-long.png" alt="logo" width={900} height={0} />
+        </div>
+        <div className="md:w-6/12"></div>
+        <div className="ml-4">
           <p className="md:mt-9 md:text-4xl text-2xl font-bold">SELAMAT DATANG</p>
           <p className="md:text-2xl font-bold text-orange-400">Sistem Informasi Supervisi Keperawatan <br />RS. Elisabeth Semarang</p>
           <p className="mt-10 md:text-xl  font-bold italic text-slate-500">&quot;Pancaran Cintanya<br />Menyembuhkan Derita Sesama&quot;</p>
