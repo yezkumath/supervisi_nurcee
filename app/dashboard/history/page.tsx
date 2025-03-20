@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { useState, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { ListDataSupervisi, DetailSupervisi } from "@/app/interface";
+import { ListDataSupervisi, DetailSupervisi } from "@/app/api/interface";
 import { GET_list_supervisi, GET_detail_list_supervisi } from "@/app/api/database";
 import {
     Table,

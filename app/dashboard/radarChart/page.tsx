@@ -19,22 +19,22 @@ import {
 } from "@/components/ui/chart"
 import { useEffect, useState } from "react"
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { dataRadarChart } from "@/app/interface";
+import { dataRadarChart } from "@/app/api/interface";
 import { LegendProps } from "recharts";
 
 // Updated chart config to match your data categories
 const chartConfig = {
     Complain: {
         label: "Complain",
-        color: "hsl(var(--chart-1))",
+        color: "#FF0000",
     },
     Fasilitas: {
         label: "Fasilitas",
-        color: "hsl(var(--chart-2))",
+        color: "#0000FF",
     },
     Pasien4hari: {
         label: "Pasien>4hari",
-        color: "hsl(var(--chart-4))",
+        color: "#32CD32",
     },
 } satisfies ChartConfig
 

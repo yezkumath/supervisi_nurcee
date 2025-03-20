@@ -13,7 +13,7 @@ import { GET_instalasi_dataCategory } from "@/app/api/database";
 import { useState, useEffect } from "react";
 import { CalendarDatePicker } from "@/components/calendar-date-picker";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Instalasi_DataCategory } from "@/app/interface";
+import { Instalasi_DataCategory } from "@/app/api/interface";
 
 // Define available color schemes
 const colorSchemes: Record<string, string[]> = {

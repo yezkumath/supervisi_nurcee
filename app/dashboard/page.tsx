@@ -28,7 +28,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import toast, { Toaster } from 'react-hot-toast';
-import { MasterInstalasiRuang } from "@/app/interface"
+import { MasterInstalasiRuang } from "@/app/api/interface"
 import { GET_master_instalasi_ruang, POST_SUPERVISI } from "@/app/api/database"
 import { useState, useEffect } from "react"
 
