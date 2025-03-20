@@ -30,30 +30,45 @@ export default function Home() {
     }
   }, []);
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevents page reload on form submission
     setLoading(true);
-    try {
-      const loginData = await POST_LOGIN(username, password);
-      console.log("logindata", loginData);
-      if (loginData.Code === '200') {
-        const userData = loginData.Data;
-        localStorage.setItem("loginData", JSON.stringify({ userData }));
-        const detailLogin = await GET_EMPLOYEE_BY_NIP(userData.nip);
-        console.log("detil", detailLogin);
-        localStorage.setItem("pictureUser", detailLogin.foto_profil);
-        toast.success(loginData.Message);
-        window.location.href = '/dashboard';
+
+    const loginPromise = new Promise(async (resolve, reject) => {
+      try {
+        const loginData = await POST_LOGIN(username, password);
+        console.log("logindata", loginData);
+        if (loginData.Code === '200') {
+          const userData = loginData.Data;
+          localStorage.setItem("loginData", JSON.stringify({ userData }));
+          const detailLogin = await GET_EMPLOYEE_BY_NIP(userData.nip);
+          console.log("detil", detailLogin);
+          localStorage.setItem("pictureUser", detailLogin.foto_profil);
+          resolve(loginData.Message);
+          window.location.href = '/dashboard';
+        }
+        else {
+          setPassword("");
+          reject(loginData.Message);
+        }
       }
-      else {
-        toast.error(loginData.Message);
-        setPassword("");
+      catch (error) {
+        console.error("Error:", error);
+        reject("Terjadi kesalahan saat login");
+      } finally {
+        setLoading(false);
       }
-    }
-    catch (error) {
-      console.error("Error:", error);
-    }
+    });
+
+    toast.promise(loginPromise, {
+      loading: 'Sedang memproses login...',
+      success: (message: string) => `${message}`,
+      error: (message: string) => `${message}`
+    });
   }
+
+
   return (
     <div style=
       {{
