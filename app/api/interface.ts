@@ -6,10 +6,14 @@ export interface MasterInstalasiRuang {
 
 export interface ListDataSupervisi{
     tanggal: Date;
-    ruang_lengkap:string;
     ruang: string;
     supervisi:string;
+    kolaborator:string;
 }
+
+export interface Collaborator {
+    description: string;
+  }
 
 export interface DetailSupervisi{
     tanggal: Date;
@@ -24,8 +28,8 @@ export interface Instalasi_DataCategory {
 
 
 export interface dataRadarChart{
-    nama_ruangan:string;
+    ruang:string;
     Complain:number;
     Fasilitas:number;
-    Pasien4hari:number;
+    JKN7:number;
 }

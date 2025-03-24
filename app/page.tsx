@@ -39,7 +39,7 @@ export default function Home() {
       try {
         const loginData = await POST_LOGIN(username, password);
         console.log("logindata", loginData);
-        if (loginData.Code === '200') {
+        if (loginData.Code === 200) {
           const userData = loginData.Data;
           localStorage.setItem("loginData", JSON.stringify({ userData }));
           const detailLogin = await GET_EMPLOYEE_BY_NIP(userData.nip);

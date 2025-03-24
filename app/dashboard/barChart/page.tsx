@@ -63,8 +63,8 @@ const CustomChartLegend = ({ payload }: { payload?: { value: string; color: stri
 
 export default function Page() {
     const colorScheme = "default"
-    const [category, serCategory] = useState("Complain");
-    const [instalasi, setInstalasi] = useState("A");
+    const [category, setCategory] = useState("Complain");
+    const [instalasi, setInstalasi] = useState("N");
     const [data, setData] = useState<Instalasi_DataCategory[]>([]);
     const [chartData, setChartData] = useState<Instalasi_DataCategory[]>([]);
     const [dataKeys, setDataKeys] = useState<string[]>([]);
@@ -162,19 +162,19 @@ export default function Page() {
                         variant="outline"
                     />
                     {/* kategori */}
-                    <Select value={category} onValueChange={serCategory}>
+                    <Select value={category} onValueChange={setCategory}>
                         <SelectTrigger className="w-52 rounded-lg sm:ml-auto" aria-label="Select a time range">
                             <SelectValue placeholder="Last 3 months" />
                         </SelectTrigger>
                         <SelectContent className="rounded-xl">
-                            <SelectItem value="Complain" className="rounded-lg">
+                            <SelectItem value="Complain" className="rounded-lg text-red-400">
                                 Complain
                             </SelectItem>
-                            <SelectItem value="Fasilitas" className="rounded-lg">
+                            <SelectItem value="Fasilitas" className="rounded-lg text-blue-400">
                                 Fasilitas
                             </SelectItem>
-                            <SelectItem value="Pasien4hari" className="rounded-lg">
-                                Pasien lebih dari 4 hari
+                            <SelectItem value="JKN7+" className="rounded-lg text-green-400">
+                                JKN 7+
                             </SelectItem>
                         </SelectContent>
                     </Select>
@@ -185,6 +185,9 @@ export default function Page() {
                             <SelectValue placeholder="Last 3 months" />
                         </SelectTrigger>
                         <SelectContent className="rounded-xl">
+                            <SelectItem value="N" className="rounded-lg">
+                                -
+                            </SelectItem>
                             <SelectItem value="A" className="rounded-lg">
                                 Instalasi A
                             </SelectItem>

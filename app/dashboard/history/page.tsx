@@ -204,16 +204,18 @@ export default function Page() {
                                             <TableHeader>
                                                 <TableRow>
                                                     <TableHead className="w-5 text-center">No</TableHead>
-                                                    <TableHead className="w-24 md:w-full ld:w-full text-center">RUANG</TableHead>
-                                                    <TableHead className="text-center">SUPERVISI</TableHead>
+                                                    <TableHead className="text-center">Ruang</TableHead>
+                                                    <TableHead className="text-center">Supervisi</TableHead>
+                                                    <TableHead className="text-center">Kolaborator</TableHead>
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
                                                 {listData.map((list, index) => (
                                                     <TableRow key={index}>
                                                         <TableCell className="text-center" >{index + 1}.</TableCell>
-                                                        <TableCell className=" text-center">{list.ruang_lengkap}</TableCell>
+                                                        <TableCell className=" text-center">{list.ruang}</TableCell>
                                                         <TableCell className=" text-center">{list.supervisi}</TableCell>
+                                                        <TableCell className=" text-center">{list.kolaborator}</TableCell>
                                                         <TableCell className="flex">
 
                                                             <Button
@@ -262,7 +264,7 @@ export default function Page() {
                             <SelectLabel>Kategori</SelectLabel>
                             <SelectItem value="Complain" className="border-l-8 border-red-400">Complain</SelectItem>
                             <SelectItem value="Fasilitas" className="border-l-8 border-blue-400">Fasilitas</SelectItem>
-                            <SelectItem value="Pasien4hari" className="border-l-8 border-green-400">Pasient &gt; 4 hari</SelectItem>
+                            <SelectItem value="JKN7+" className="border-l-8 border-green-400">JKN 7+</SelectItem>
                             <SelectItem value="All" className="border-l-8">Semua Kategori</SelectItem>
                         </SelectGroup>
                     </SelectContent>
@@ -282,10 +284,10 @@ export default function Page() {
                             <SelectValue placeholder="Rows" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="1">1</SelectItem>
                             <SelectItem value="5">5</SelectItem>
-                            <SelectItem value="10">10</SelectItem>
                             <SelectItem value="15">15</SelectItem>
+                            <SelectItem value="45">45</SelectItem>
+                            <SelectItem value="90">90</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -321,7 +323,7 @@ export default function Page() {
                                     </TableCell>
                                     <TableCell>
                                         <textarea
-                                            className={`p-2 w-full h-10 border rounded-lg  border-l-8 ${detail.category === "Complain" ? "border-red-400" : ""} ${detail.category === "Fasilitas" ? "border-blue-400" : ""} ${detail.category === "Pasien4hari" ? "border-green-400" : ""}`}
+                                            className={`p-2 w-full h-10 border rounded-lg  border-l-8 ${detail.category === "Complain" ? "border-red-400" : ""} ${detail.category === "Fasilitas" ? "border-blue-400" : ""} ${detail.category === "JKN7+" ? "border-green-400" : ""}`}
                                             value={detail.note}
                                             readOnly
                                             style={{ overflow: 'hidden' }} // Prevent scrollbar
@@ -339,7 +341,7 @@ export default function Page() {
                         </TableBody>
                     </Table>
                 ) : (
-                    <div className='m-5'>No Data</div>
+                    <div className='m-5'>No Data <br /> Pilih tanggal untuk mencari data yang diinginkan</div>
                 )}
             </div>
             <div></div>

@@ -26,15 +26,15 @@ import { LegendProps } from "recharts";
 const chartConfig = {
     Complain: {
         label: "Complain",
-        color: "#FF0000",
+        color: "#f87171",
     },
     Fasilitas: {
         label: "Fasilitas",
-        color: "#0000FF",
+        color: "#60a5fa",
     },
-    Pasien4hari: {
-        label: "Pasien>4hari",
-        color: "#32CD32",
+    JKN7: {
+        label: "JKN 7+",
+        color: "#4ade80",
     },
 } satisfies ChartConfig
 
@@ -124,7 +124,7 @@ export default function Page() {
                                 cursor={false}
                                 content={<ChartTooltipContent indicator="line" />}
                             />
-                            <PolarAngleAxis dataKey="nama_ruangan" />
+                            <PolarAngleAxis dataKey="ruang" />
                             <PolarGrid radialLines={false} />
                             <Radar
                                 name="Complain"
@@ -143,11 +143,11 @@ export default function Page() {
                                 strokeWidth={2}
                             />
                             <Radar
-                                name="Pasien > 4hari"
-                                dataKey="Pasien4hari"
-                                fill="var(--color-Pasien4hari)"
+                                name="JKN 7+"
+                                dataKey="JKN7"
+                                fill="var(--color-JKN7)"
                                 fillOpacity={0}
-                                stroke="var(--color-Pasien4hari)"
+                                stroke="var(--color-JKN7)"
                                 strokeWidth={2}
                             />
                             <Legend
