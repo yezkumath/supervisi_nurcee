@@ -215,12 +215,12 @@ export default function Page() {
                                                             {/* Supervisi section */}
                                                             <div className="flex items-center">
                                                                 <div className="w-24 font-medium ">Supervisi</div>
-                                                                <div>{list.supervisi}</div>
+                                                                <div className='font-medium'>{list.supervisi}</div>
                                                             </div>
 
                                                             {/* Kolaborator section */}
                                                             <div className="flex items-center">
-                                                                <div className="w-24 font-medium text-gray-700 text-sm">Kolaborator</div>
+                                                                <div className="w-24 text-gray-700 text-sm">Kolaborator</div>
                                                                 <div className=' text-gray-700 text-sm'>{list.kolaborator}</div>
                                                             </div>
 
