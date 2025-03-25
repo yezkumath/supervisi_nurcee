@@ -102,7 +102,7 @@ export async function GET_instalasi_dataCategory(category:string, instalasi:stri
     const formattedDateFrom = dateFrom.toISOString().split('T')[0]; // Converts to 'YYYY-MM-DD'
     const formattedDateTo = dateTo.toISOString().split('T')[0]; // Converts to 'YYYY-MM-DD'
 
-    console.log(dateFrom,dateTo);
+  //  console.log(dateFrom,dateTo);
     if(instalasi === "A"){
         data = `SELECT 
                     CONVERT(DATE, update_at) AS date,
@@ -185,7 +185,7 @@ export async function GET_instalasi_dataCategory(category:string, instalasi:stri
     try {
         sql = await connectToDatabase();
         const result = await sql.query(data);
-        console.log(result.recordset);
+      //  console.log(result.recordset);
         return result.recordset;
     } catch (error) {
         console.error("Error:", error);
@@ -216,7 +216,7 @@ export async function GET_fullCategory(dateFrom:Date , dateTo:Date) {
             ruang
         ORDER BY 
             ruang`;
-            console.log(result.recordset);
+           // console.log(result.recordset);
         return result.recordset;
     } catch (error) {
         console.error("Error:", error);

@@ -48,12 +48,12 @@ export default function Page() {
     const [category, setCategory] = useState<string>("all");
 
     useEffect(() => {
-        console.log(dateRange.from);
-        console.log(dateRange.to);
+        // console.log(dateRange.from);
+        //  console.log(dateRange.to);
 
         const fetchData = async () => {
             const fetchedData = await GET_fullCategory(dateRange.from, dateRange.to) || [];
-            console.log(fetchedData);
+            // console.log(fetchedData);
             setData(fetchedData);
         };
         fetchData();
@@ -196,7 +196,7 @@ export default function Page() {
                 </CardContent>
                 <CardFooter className="flex-col gap-2 text-sm">
                     <div className="flex items-center gap-2 font-medium leading-none">
-                        {data.length > 0 ? `Menampilkan data dari ${data.length} Rauang Rawat Inap` : "Data tidak tersedia"}
+                        {data.length > 0 ? `Menampilkan data dari ${data.length} Ruang Perawatan RS. Elisabeth` : "Data tidak tersedia"}
                     </div>
                     <div className="flex items-center gap-2 leading-none text-muted-foreground">
                         {getDateRangeText()}

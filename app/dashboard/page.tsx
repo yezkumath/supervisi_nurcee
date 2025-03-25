@@ -72,13 +72,13 @@ export default function Page() {
                 const anggota = await GET_Supervisi_Anggota();
                 if (ruang) {
                     setDataRuang(ruang);
-                    console.log(ruang);
+                    //  console.log(ruang);
                 } else {
                     setDataRuang([]);
                 }
                 if (anggota) {
                     setDataColaborator(anggota);
-                    console.log(anggota);
+                    //  console.log(anggota);
                 } else {
                     setDataColaborator([]);
                 }
@@ -121,7 +121,7 @@ export default function Page() {
     }, []);
 
     const updateAutosave = (ques: { text: string; cat: string }[]) => {
-        console.log("updateAutosave", ques);
+        // console.log("updateAutosave", ques);
         const formData = { nama, colaborator, ruang, jumlahPasient, jumlahPerawat, questions: ques };
         localStorage.setItem("autosaveSupervisi", JSON.stringify({ formData }));
     };

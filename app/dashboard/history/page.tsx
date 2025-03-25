@@ -84,12 +84,12 @@ export default function Page() {
             setListData([]);
             setIsLoadingList(true);
             const formattedDate = date.toLocaleDateString('en-CA');
-            console.log("date:", formattedDate);
+            //  console.log("date:", formattedDate);
             const fetchListData = async () => {
                 try {
                     const result = await GET_list_supervisi(formattedDate);
                     if (result) {
-                        console.log(result);
+                        //  console.log(result);
                         setListData(result);
                         setIsClicked(null);
                     } else {
@@ -118,7 +118,7 @@ export default function Page() {
             const result = await GET_detail_list_supervisi(listData.ruang, listData.supervisi, formattedDate);
             if (result) {
                 setDetailList(result);
-                console.log("Detail Note:", result);
+                //   console.log("Detail Note:", result);
                 setIsClicked(index);
             } else {
                 console.error("Error: No detail result returned");
@@ -140,7 +140,7 @@ export default function Page() {
 
             const result = await GET_detail_list_supervisi(listData.ruang, listData.supervisi, formattedDate);
 
-            console.log(result);
+            // console.log(result);
             if (result) {
                 // Convert the date field for each item to the desired UTC format.
                 const dataWithUTC = (result as DetailSupervisi[]).map((item: DetailSupervisi) => ({

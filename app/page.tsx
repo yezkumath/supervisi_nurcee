@@ -22,13 +22,27 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // Reset form state when component mounts
   useEffect(() => {
-    const loginData = localStorage.getItem("loginData");
-    if (loginData) {
-      router.push("/dashboard");
-      return;
-    }
-  }, []);
+    const checkLoginStatus = () => {
+      setUsername(""); // Reset username on mount/remount
+      setPassword(""); // Reset password on mount/remount
+
+      const loginData = localStorage.getItem("loginData");
+      if (loginData) {
+        router.push("/dashboard");
+      }
+    };
+
+    checkLoginStatus();
+
+    // Add event listener for when user navigates back to this page
+    window.addEventListener('focus', checkLoginStatus);
+
+    return () => {
+      window.removeEventListener('focus', checkLoginStatus);
+    };
+  }, [router]);
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,12 +52,12 @@ export default function Home() {
     const loginPromise = new Promise(async (resolve, reject) => {
       try {
         const loginData = await POST_LOGIN(username, password);
-        console.log("logindata", loginData);
+        // console.log("logindata", loginData);
         if (loginData.Code === 200) {
           const userData = loginData.Data;
           localStorage.setItem("loginData", JSON.stringify({ userData }));
           const detailLogin = await GET_EMPLOYEE_BY_NIP(userData.nip);
-          console.log("detil", detailLogin);
+          // console.log("detil", detailLogin);
           localStorage.setItem("pictureUser", detailLogin.foto_profil);
           resolve(loginData.Message);
           window.location.href = '/dashboard';
@@ -105,6 +119,7 @@ export default function Home() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="bg-white"
+                autoFocus
               />
               <p>Masukkan Password</p>
               <Input placeholder="Password"
@@ -122,49 +137,6 @@ export default function Home() {
           </Card>
         </div>
       </div>
-
-
-
-      {/* <div className="w-1/2">
-        <div className="mt-32 ml-16">
-          <Image src="/images/logo-long.png" alt="logo" width={900} height={0} />
-          <p className="mt-9 text-4xl font-bold">SELAMAT DATANG</p>
-          <p className="text-2xl font-bold text-orange-400">Sistem Informasi Supervisi Keperawatan <br />RS. Elisabeth Semarang</p>
-          <p className="mt-52 text-xl font-bold italic text-slate-500">&quot;Pancaran Cintanya<br />Menyembuhkan Derita Sesama&quot;</p>
-        </div>
-      </div>
-      <div className="w-1/2 flex justify-center items-center">
-        <Card className="w-[600px] bg-yellow-50 border-blue-300">
-          <CardHeader>
-            <CardTitle className="text-2xl">
-              Supervisi Keperawatan
-            </CardTitle>
-            <CardDescription className="text-sky-600 font-bold text-3xl">
-              SSO Log-in
-            </CardDescription >
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>Masukkan Nomor Induk Pegawai</p>
-            <Input placeholder="NIP"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="bg-white"
-            />
-            <p>Masukkan Password</p>
-            <Input placeholder="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="bg-white"
-            />
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full"
-              onClick={handleSubmit}
-            >Masuk</Button>
-          </CardFooter>
-        </Card>
-      </div> */}
     </div >
   );
 }

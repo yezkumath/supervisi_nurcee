@@ -85,7 +85,7 @@ export default function Page() {
     useEffect(() => {
         if (!data || data.length === 0) return;
 
-        console.log("data", data);
+        //  console.log("data", data);
         // Convert dates to consistent format
         const dataWithUTC = data.map((item) => ({
             ...item,
@@ -124,13 +124,13 @@ export default function Page() {
         const deltaInMillis = to.getDate() - from.getDate();
 
 
-        console.log("from", from);
-        console.log("to", to);
-        console.log("delta in days:", deltaInMillis);
+        //  console.log("from", from);
+        // console.log("to", to);
+        // console.log("delta in days:", deltaInMillis);
     };
 
     const filteredData = chartData.filter((item) => {
-        console.log("chartData", chartData);
+        //  console.log("chartData", chartData);
         const date = new Date(item.date);
         const { from, to } = dateRange;
         // return date >= startDate && date <= referenceDate;

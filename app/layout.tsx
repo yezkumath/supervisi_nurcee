@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Supervisi Nurce",
+  title: "Supervisi Nurse",
   description: "Aplikasi untuk melakukan supervisi oleh perawat",
 };
 

@@ -35,7 +35,7 @@ export async function POST_TOKEN() {
   export async function POST_LOGIN(username:string, password:string) {
     const url = 'https://geni.rs-elisabeth.com/authentication/login';
     const passwordhash = btoa(password);
-    console.log("hash password",passwordhash);
+   // console.log("hash password",passwordhash);
     const token = await POST_TOKEN();
     
   if (!token) {
@@ -58,7 +58,7 @@ export async function POST_TOKEN() {
         });
         
         const data = await response.json();
-        console.log(data);
+      //  console.log(data);
         return data;
       
   }
