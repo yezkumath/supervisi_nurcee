@@ -48,7 +48,7 @@ export default function Page() {
     const [category, setCategory] = useState("");
     const [isCatComplain, setIsCatComplain] = useState(false);
     const [isCatFasilitas, setIsCatFasilitas] = useState(false);
-    const [isCatPasien4hari, setIsCatPasien4hari] = useState(false);
+    const [isCatJKN7, setIsCatJKN7] = useState(false);
 
     const [questions, setQuestions] = useState<{ text: string, cat: string }[]>([]);
 
@@ -151,18 +151,18 @@ export default function Page() {
         setIsCatComplain((prev) => !prev);
         setCategory((prev) => (prev === "Complain" ? "" : "Complain"));
         setIsCatFasilitas(false);
-        setIsCatPasien4hari(false);
+        setIsCatJKN7(false);
     };
 
     const handleFasilitasClick = () => {
         setIsCatFasilitas((prev) => !prev);
         setCategory((prev) => (prev === "Fasilitas" ? "" : "Fasilitas"));
         setIsCatComplain(false);
-        setIsCatPasien4hari(false);
+        setIsCatJKN7(false);
     };
 
     const handleJKN7Click = () => {
-        setIsCatPasien4hari((prev) => !prev);
+        setIsCatJKN7((prev) => !prev);
         setCategory((prev) => (prev === "JKN7+" ? "" : "JKN7+"));
         setIsCatComplain(false);
         setIsCatFasilitas(false);
@@ -343,7 +343,7 @@ export default function Page() {
                             Fasilitas
                         </Button>
                         <Button
-                            className={`px-3 py-1 h-auto ${isCatPasien4hari ? "bg-green-500" : "bg-green-400 hover:bg-green-500"}`}
+                            className={`px-3 py-1 h-auto ${isCatJKN7 ? "bg-green-500" : "bg-green-400 hover:bg-green-500"}`}
                             onClick={handleJKN7Click}
                         >
                             JKN 7+ hari
@@ -355,7 +355,7 @@ export default function Page() {
                         <Textarea
                             className={`border-2 min-h-8 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
                                 isCatFasilitas ? "border-l-blue-400 focus:border-l-blue-500" :
-                                    isCatPasien4hari ? "border-l-green-400 focus:border-l-green-500" :
+                                    isCatJKN7 ? "border-l-green-400 focus:border-l-green-500" :
                                         "border-l-gray-300"
                                 }`}
                             value={input}
@@ -393,7 +393,7 @@ export default function Page() {
                                                 <div
                                                     className={`p-3 w-full border rounded-lg ${q.cat === "Complain" ? "border-l-8 border-l-red-400 bg-red-50" :
                                                         q.cat === "Fasilitas" ? "border-l-8 border-l-blue-400 bg-blue-50" :
-                                                            q.cat === "Pasien4hari" ? "border-l-8 border-l-green-400 bg-green-50" :
+                                                            q.cat === "JKN7+" ? "border-l-8 border-l-green-400 bg-green-50" :
                                                                 "border-gray-200"
                                                         }`}
                                                 >
