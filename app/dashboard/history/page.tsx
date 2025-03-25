@@ -201,36 +201,46 @@ export default function Page() {
                                 ) : listData.length > 0 ? (
                                     <div className="h-[300px] overflow-x-auto ">
                                         <Table>
-                                            <TableHeader>
-                                                <TableRow>
-                                                    <TableHead className="w-5 text-center">No</TableHead>
-                                                    <TableHead className="text-center">Ruang</TableHead>
-                                                    <TableHead className="text-center">Supervisi</TableHead>
-                                                    <TableHead className="text-center">Kolaborator</TableHead>
-                                                </TableRow>
-                                            </TableHeader>
                                             <TableBody>
                                                 {listData.map((list, index) => (
-                                                    <TableRow key={index}>
-                                                        <TableCell className="text-center" >{index + 1}.</TableCell>
-                                                        <TableCell className=" text-center">{list.ruang}</TableCell>
-                                                        <TableCell className=" text-center">{list.supervisi}</TableCell>
-                                                        <TableCell className=" text-center">{list.kolaborator}</TableCell>
-                                                        <TableCell className="flex">
+                                                    <TableRow key={index} className="border-b hover:bg-gray-50">
+                                                        <TableCell className="text-center font-medium w-12">{index + 1}.</TableCell>
+                                                        <TableCell>
+                                                            {/* Ruang section - full width */}
+                                                            <div className="flex items-center w-full">
+                                                                <div className="w-24 font-medium text-blue-600 ">RUANG</div>
+                                                                <div className="text-blue-600 font-medium flex-grow">{list.ruang}</div>
+                                                            </div>
 
-                                                            <Button
-                                                                onClick={() => handleDetilData(list, index)}
-                                                                className={isClicked === index ? 'bg-slate-300 w-10' : 'bg-yellow-300 w-10'}
+                                                            {/* Supervisi section */}
+                                                            <div className="flex items-center">
+                                                                <div className="w-24 font-medium ">Supervisi</div>
+                                                                <div>{list.supervisi}</div>
+                                                            </div>
 
-                                                            >
-                                                                <p className='text-xs font-bold'>Open</p>
-                                                            </Button>
-                                                            <Button
-                                                                className="bg-blue-300 ml-2"
-                                                                onClick={() => handleDownloadExcel(list)}
-                                                            >
-                                                                <p className='text-xs font-bold'>Download <br />Excel</p>
-                                                            </Button>
+                                                            {/* Kolaborator section */}
+                                                            <div className="flex items-center">
+                                                                <div className="w-24 font-medium text-gray-700 text-sm">Kolaborator</div>
+                                                                <div className=' text-gray-700 text-sm'>{list.kolaborator}</div>
+                                                            </div>
+
+                                                            {/* Buttons section - full width row with buttons spread */}
+                                                            <div className="flex w-full justify-between mt-2">
+                                                                <Button
+                                                                    onClick={() => handleDetilData(list, index)}
+                                                                    className={`px-4 py-2 rounded-md transition-colors ${isClicked === index ? 'bg-slate-300' : 'bg-yellow-300 hover:bg-yellow-400'
+                                                                        }`}
+                                                                >
+                                                                    <p className="text-xs font-bold">Open</p>
+                                                                </Button>
+
+                                                                <Button
+                                                                    onClick={() => handleDownloadExcel(list)}
+                                                                    className="bg-blue-300 hover:bg-blue-400 px-4 py-2 rounded-md transition-colors"
+                                                                >
+                                                                    <p className="text-xs font-bold">Download Excel</p>
+                                                                </Button>
+                                                            </div>
                                                         </TableCell>
                                                     </TableRow>
                                                 ))}

@@ -244,9 +244,9 @@ export default function Page() {
             </div>
 
             {/* Main Content Container */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
                 {/* First Section - Petugas & Rekan */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-2 rounded-lg shadow-sm">
                     <div className="space-y-1">
                         <Input
                             className="border-blue-500 focus:ring-2 focus:ring-blue-300"
@@ -276,7 +276,7 @@ export default function Page() {
                 </div>
 
                 {/* Second Section - Room Info */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-4 rounded-lg shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-2 rounded-lg shadow-sm">
                     <div className="space-y-1">
                         <label className="font-medium text-sm text-gray-700">Ruangan Instalasi</label>
                         <Select
@@ -324,12 +324,12 @@ export default function Page() {
                 </div>
 
                 {/* Input Section */}
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <h2 className="text-xl font-bold text-amber-500 mb-1 text-center">KEJADIAN DI RUANGAN HARI INI</h2>
-                    <p className="text-xs text-gray-500 mb-3">*Kejadian dipisah berdasarkan poin masalahnya</p>
+                <div className="bg-white p-2 rounded-lg shadow-sm">
+                    <h2 className="text-xl font-bold text-amber-500 text-center">KEJADIAN DI RUANGAN HARI INI</h2>
+                    <p className="text-xs text-gray-500 mb-2">*Kejadian dipisah berdasarkan poin masalahnya</p>
 
                     {/* Category Buttons */}
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-2 mb-2">
                         <Button
                             className={`px-3 py-1 h-auto ${isCatComplain ? "bg-red-500" : "bg-red-400 hover:bg-red-500"}`}
                             onClick={handleComplainClick}
@@ -351,9 +351,9 @@ export default function Page() {
                     </div>
 
                     {/* Input Area */}
-                    <div className="flex gap-2 items-start">
+                    <div className="flex gap-2 items-center">
                         <Textarea
-                            className={`border-2 min-h-24 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
+                            className={`border-2 min-h-8 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
                                 isCatFasilitas ? "border-l-blue-400 focus:border-l-blue-500" :
                                     isCatPasien4hari ? "border-l-green-400 focus:border-l-green-500" :
                                         "border-l-gray-300"
@@ -372,7 +372,7 @@ export default function Page() {
                 </div>
 
                 {/* Table of Records */}
-                <div className="bg-white rounded-lg shadow-sm p-4 flex-grow overflow-hidden flex flex-col">
+                <div className="bg-white rounded-lg shadow-sm p-2 flex-grow overflow-hidden flex flex-col">
                     <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
@@ -425,7 +425,7 @@ export default function Page() {
 
                     {/* Pagination */}
                     {totalPages > 1 && (
-                        <div className="mt-4 flex justify-center">
+                        <div className="flex justify-center">
                             <Pagination>
                                 <PaginationContent>
                                     <PaginationItem>
@@ -480,7 +480,7 @@ export default function Page() {
                 </div>
 
                 {/* Footer Actions */}
-                <div className="flex flex-col sm:flex-row justify-between gap-4 mt-2">
+                <div className="flex flex-col sm:flex-row justify-between gap-2">
                     <Button
                         className="bg-green-500 hover:bg-green-600 flex items-center"
                         onClick={handleSubmit}
@@ -503,8 +503,8 @@ export default function Page() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="5">5</SelectItem>
-                                <SelectItem value="10">10</SelectItem>
                                 <SelectItem value="15">15</SelectItem>
+                                <SelectItem value="45">45</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

@@ -21,6 +21,7 @@ import { useEffect, useState } from "react"
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { dataRadarChart } from "@/app/api/interface";
 import { LegendProps } from "recharts";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Updated chart config to match your data categories
 const chartConfig = {
@@ -44,6 +45,7 @@ export default function Page() {
         from: new Date(new Date().getFullYear(), 0, 1),
         to: new Date(),
     });
+    const [category, setCategory] = useState<string>("all");
 
     useEffect(() => {
         console.log(dateRange.from);
@@ -107,12 +109,33 @@ export default function Page() {
                     <CardDescription>
                         Menampilkan semua data kategori di setiap ruangan di RS Elisabeth Semarang
                     </CardDescription>
-                    <CalendarDatePicker
-                        date={dateRange}
-                        onDateSelect={handleDateSelect}
-                        className="h-9 w-[250px]"
-                        variant="outline"
-                    />
+                    <div className="flex flex-col sm:flex-row w-full items-center justify-between gap-4 mt-4">
+                        <CalendarDatePicker
+                            date={dateRange}
+                            onDateSelect={handleDateSelect}
+                            className="h-9 w-[250px]"
+                            variant="outline"
+                        />
+                        <Select value={category} onValueChange={setCategory}>
+                            <SelectTrigger className="w-52 rounded-lg sm:ml-auto" aria-label="Select a category">
+                                <SelectValue placeholder="All Categories" />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl">
+                                <SelectItem value="all" className="rounded-lg">
+                                    All Categories
+                                </SelectItem>
+                                <SelectItem value="Complain" className="rounded-lg text-red-400">
+                                    Complain
+                                </SelectItem>
+                                <SelectItem value="Fasilitas" className="rounded-lg text-blue-400">
+                                    Fasilitas
+                                </SelectItem>
+                                <SelectItem value="JKN7" className="rounded-lg text-green-400">
+                                    JKN 7+
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </CardHeader>
                 <CardContent className="w-full">
                     <ChartContainer
@@ -126,30 +149,36 @@ export default function Page() {
                             />
                             <PolarAngleAxis dataKey="ruang" />
                             <PolarGrid radialLines={false} />
-                            <Radar
-                                name="Complain"
-                                dataKey="Complain"
-                                fill="var(--color-Complain)"
-                                fillOpacity={0}
-                                stroke="var(--color-Complain)"
-                                strokeWidth={2}
-                            />
-                            <Radar
-                                name="Fasilitas"
-                                dataKey="Fasilitas"
-                                fill="var(--color-Fasilitas)"
-                                fillOpacity={0}
-                                stroke="var(--color-Fasilitas)"
-                                strokeWidth={2}
-                            />
-                            <Radar
-                                name="JKN 7+"
-                                dataKey="JKN7"
-                                fill="var(--color-JKN7)"
-                                fillOpacity={0}
-                                stroke="var(--color-JKN7)"
-                                strokeWidth={2}
-                            />
+                            {(category === "all" || category === "Complain") && (
+                                <Radar
+                                    name="Complain"
+                                    dataKey="Complain"
+                                    fill="var(--color-Complain)"
+                                    fillOpacity={0}
+                                    stroke="var(--color-Complain)"
+                                    strokeWidth={2}
+                                />
+                            )}
+                            {(category === "all" || category === "Fasilitas") && (
+                                <Radar
+                                    name="Fasilitas"
+                                    dataKey="Fasilitas"
+                                    fill="var(--color-Fasilitas)"
+                                    fillOpacity={0}
+                                    stroke="var(--color-Fasilitas)"
+                                    strokeWidth={2}
+                                />
+                            )}
+                            {(category === "all" || category === "JKN7") && (
+                                <Radar
+                                    name="JKN 7+"
+                                    dataKey="JKN7"
+                                    fill="var(--color-JKN7)"
+                                    fillOpacity={0}
+                                    stroke="var(--color-JKN7)"
+                                    strokeWidth={2}
+                                />
+                            )}
                             <Legend
                                 iconSize={12}
                                 formatter={renderLegendText}
@@ -174,8 +203,6 @@ export default function Page() {
                     </div>
                 </CardFooter>
             </Card>
-
         </div>
-
     )
 }
