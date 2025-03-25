@@ -126,7 +126,7 @@ export default function Page() {
 
         //  console.log("from", from);
         // console.log("to", to);
-        // console.log("delta in days:", deltaInMillis);
+        console.log("delta in days:", deltaInMillis);
     };
 
     const filteredData = chartData.filter((item) => {
