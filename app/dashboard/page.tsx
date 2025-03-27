@@ -203,7 +203,6 @@ export default function Page() {
                     // User tried to delete part of the prefix - keep the prefix intact
                     // and let them edit only what comes after
                     const userContent = input.substring(prefix.length);
-                    const cursorPosition = e.target.selectionStart;
 
                     // Calculate how much of the user content to keep based on cursor position and deletion
                     const keepLength = userContent.length - (input.length - newValue.length);
