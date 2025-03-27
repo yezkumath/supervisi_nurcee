@@ -35,6 +35,8 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { X, Plus, Save } from "lucide-react";
 
+
+
 export default function Page() {
     const router = useRouter();
     const [dataRuang, setDataRuang] = useState<MasterInstalasiRuang[]>([]);
@@ -119,6 +121,23 @@ export default function Page() {
         fetchData();
         getData();
     }, []);
+    useEffect(() => {
+        // Check if ruang value is 'UNIT KERJA LAIN'
+        if (ruang === 'UNIT KERJA LAIN') {
+            // Add prefix only if it doesn't already exist
+            if (!input.startsWith('Supervisi di ruangan ')) {
+                setInput('Supervisi di ruangan ' + input);
+            }
+
+        }
+        else {
+            if (input.startsWith('Supervisi di ruangan ')) {
+                setInput('');
+            }
+        }
+    }, [ruang]);
+
+
 
     const updateAutosave = (ques: { text: string; cat: string }[]) => {
         // console.log("updateAutosave", ques);
@@ -169,8 +188,42 @@ export default function Page() {
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newText = e.target.value;
-        setInput(newText);
+        const newValue = e.target.value;
+
+        // If ruang is 'UNIT KERJA LAIN' and user deletes the prefix, restore it
+        if (ruang === 'UNIT KERJA LAIN') {
+            const prefix = 'Supervisi di ruangan ';
+
+            // If the user is trying to delete the prefix, allow them to edit after the prefix
+            if (newValue.length < input.length && input.startsWith(prefix)) {
+                if (newValue.startsWith(prefix)) {
+                    // User deleted something after the prefix
+                    setInput(newValue);
+                } else {
+                    // User tried to delete part of the prefix - keep the prefix intact
+                    // and let them edit only what comes after
+                    const userContent = input.substring(prefix.length);
+                    const cursorPosition = e.target.selectionStart;
+
+                    // Calculate how much of the user content to keep based on cursor position and deletion
+                    const keepLength = userContent.length - (input.length - newValue.length);
+                    const newContent = userContent.substring(0, keepLength);
+
+                    setInput(prefix + newContent);
+                }
+            } else {
+                // Normal typing - if it already has the prefix, just update
+                // Otherwise add the prefix
+                if (newValue.startsWith(prefix)) {
+                    setInput(newValue);
+                } else {
+                    setInput(prefix + newValue.replace(prefix, ''));
+                }
+            }
+        } else {
+            // Normal behavior for other ruang values
+            setInput(newValue);
+        }
     };
 
     const handleSubmit = async () => {
@@ -346,22 +399,32 @@ export default function Page() {
                             className={`px-3 py-1 h-auto ${isCatJKN7 ? "bg-green-500" : "bg-green-400 hover:bg-green-500"}`}
                             onClick={handleJKN7Click}
                         >
-                            JKN 7+ hari
+                            JKN ≥ 6 Hari
                         </Button>
                     </div>
 
                     {/* Input Area */}
                     <div className="flex gap-2 items-center">
-                        <Textarea
-                            className={`border-2 min-h-8 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
-                                isCatFasilitas ? "border-l-blue-400 focus:border-l-blue-500" :
-                                    isCatJKN7 ? "border-l-green-400 focus:border-l-green-500" :
-                                        "border-l-gray-300"
-                                }`}
-                            value={input}
-                            onChange={handleInputChange}
-                            placeholder="Tuliskan kejadian disini..."
-                        />
+                        <div className="relative w-full">
+                            <Textarea
+                                className={`border-2 min-h-8 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
+                                    isCatFasilitas ? "border-l-blue-400 focus:border-l-blue-500" :
+                                        isCatJKN7 ? "border-l-green-400 focus:border-l-green-500" :
+                                            "border-l-gray-300"
+                                    } ${ruang === 'UNIT KERJA LAIN' && input.startsWith('Supervisi di ruangan ') ? "pt-8" : ""}`
+                                }
+                                value={input}
+                                onChange={handleInputChange}
+                                placeholder="Tuliskan kejadian disini..."
+                            />
+                            {/* Overlay the styled prefix if condition is met */}
+                            {ruang === 'UNIT KERJA LAIN' && input.startsWith('Supervisi di ruangan ') && (
+                                <div className="absolute top-0 left-0 p-2 pointer-events-none">
+                                    <span className="font-bold text-red-600 pl-2">TULISKAN NAMA RUANGAN</span>
+                                </div>
+                            )}
+
+                        </div>
                         <Button
                             className="flex-shrink-0 bg-blue-500 hover:bg-blue-600 h-10"
                             onClick={handleAddQuestion}
@@ -513,3 +576,4 @@ export default function Page() {
         </div>
     );
 }
+

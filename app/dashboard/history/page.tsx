@@ -274,7 +274,7 @@ export default function Page() {
                             <SelectLabel>Kategori</SelectLabel>
                             <SelectItem value="Complain" className="border-l-8 border-red-400">Complain</SelectItem>
                             <SelectItem value="Fasilitas" className="border-l-8 border-blue-400">Fasilitas</SelectItem>
-                            <SelectItem value="JKN7+" className="border-l-8 border-green-400">JKN 7+</SelectItem>
+                            <SelectItem value="JKN7+" className="border-l-8 border-green-400">JKN ≥ 6 Hari</SelectItem>
                             <SelectItem value="All" className="border-l-8">Semua Kategori</SelectItem>
                         </SelectGroup>
                     </SelectContent>

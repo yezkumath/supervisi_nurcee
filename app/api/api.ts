@@ -13,8 +13,8 @@ export async function POST_TOKEN() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "username": "rsses", 
-            "password": "Rzxdiablo12",
+            "username": process.env.API_USERNAME, 
+            "password": process.env.API_PASSWORD,
           }),
         });
   

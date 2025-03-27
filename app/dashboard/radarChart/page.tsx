@@ -131,7 +131,7 @@ export default function Page() {
                                     Fasilitas
                                 </SelectItem>
                                 <SelectItem value="JKN7" className="rounded-lg text-green-400">
-                                    JKN 7+
+                                    JKN ≥ 6 Hari
                                 </SelectItem>
                             </SelectContent>
                         </Select>
@@ -171,7 +171,7 @@ export default function Page() {
                             )}
                             {(category === "all" || category === "JKN7") && (
                                 <Radar
-                                    name="JKN 7+"
+                                    name="JKN ≥ 6 Hari"
                                     dataKey="JKN7"
                                     fill="var(--color-JKN7)"
                                     fillOpacity={0}
