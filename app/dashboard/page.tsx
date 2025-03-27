@@ -377,7 +377,7 @@ export default function Page() {
 
                 {/* Input Section */}
                 <div className="bg-white p-2 rounded-lg shadow-sm">
-                    <h2 className="text-xl font-bold text-amber-500 text-center">KEJADIAN DI RUANGAN HARI INI</h2>
+                    <h2 className="text-xl font-bold text-green-400 text-center">KEJADIAN DI RUANGAN HARI INI</h2>
                     <p className="text-xs text-gray-500 mb-2">*Kejadian dipisah berdasarkan poin masalahnya</p>
 
                     {/* Category Buttons */}
