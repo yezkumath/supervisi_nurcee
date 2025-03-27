@@ -13,8 +13,8 @@ export async function POST_TOKEN() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "username": process.env.API_USERNAME, 
-            "password": process.env.API_PASSWORD,
+             "username": process.env.API_USERNAME, 
+             "password": process.env.API_PASSWORD
           }),
         });
   
@@ -27,6 +27,8 @@ export async function POST_TOKEN() {
       }
       catch (error) {
         console.error("Error:", error);
+        console.log("username", process.env.API_USERNAME)
+        console.log("password", process.env.API_PASSWORD)
         return null;
       }
   }
