@@ -123,7 +123,7 @@ export default function Page() {
     }, []);
     useEffect(() => {
         // Check if ruang value is 'UNIT KERJA LAIN'
-        if (ruang === 'UNIT KERJA LAIN') {
+        if (ruang === 'UNIT KERJA LAIN' && !localStorage.getItem('autosaveSupervisi')) {
             // Add prefix only if it doesn't already exist
             if (!input.startsWith('Supervisi di ruangan ')) {
                 setInput('Supervisi di ruangan ' + input);
@@ -191,7 +191,7 @@ export default function Page() {
         const newValue = e.target.value;
 
         // If ruang is 'UNIT KERJA LAIN' and user deletes the prefix, restore it
-        if (ruang === 'UNIT KERJA LAIN') {
+        if (ruang === 'UNIT KERJA LAIN' && !localStorage.getItem('autosaveSupervisi')) {
             const prefix = 'Supervisi di ruangan ';
 
             // If the user is trying to delete the prefix, allow them to edit after the prefix
