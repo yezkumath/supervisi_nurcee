@@ -353,7 +353,7 @@ export default function Page() {
                         <label className="font-medium text-sm text-gray-700">Jumlah Pasien Hari ini</label>
                         <Input
                             type="number"
-                            placeholder="0"
+                            placeholder="Di isi dengan Angka"
                             className="border-blue-500 focus:ring-2 focus:ring-blue-300"
                             value={jumlahPasient}
                             onChange={(e) => {
@@ -365,7 +365,7 @@ export default function Page() {
                         <label className="font-medium text-sm text-gray-700">Jumlah Perawat Bertugas</label>
                         <Input
                             type="number"
-                            placeholder="0"
+                            placeholder="Di isi dengan Angka"
                             className="border-blue-500 focus:ring-2 focus:ring-blue-300"
                             value={jumlahPerawat}
                             onChange={(e) => {

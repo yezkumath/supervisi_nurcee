@@ -47,6 +47,7 @@ export default function Page() {
     const [isLoadingList, setIsLoadingList] = useState<boolean>(false);
     const [isLoadingDetail, setIsLoadingDetail] = useState<boolean>(false);
     const [open, setOpen] = useState(false);
+    const [dataTitle, setDataTitle] = useState<ListDataSupervisi | null>(null);
 
 
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -115,6 +116,7 @@ export default function Page() {
             setDetailList([]);
             setIsLoadingDetail(true);
             const formattedDate = listData.tanggal.toLocaleDateString('en-CA');
+            setDataTitle(listData);
             const result = await GET_detail_list_supervisi(listData.ruang, listData.supervisi, formattedDate);
             if (result) {
                 setDetailList(result);
@@ -313,7 +315,7 @@ export default function Page() {
                             <TableRow>
                                 <TableHead className="w-10 font-bold text-lg">No.</TableHead>
                                 <TableHead className="w-32 font-bold text-lg text-center">Waktu</TableHead>
-                                <TableHead className="font-bold text-lg text-center">Kejadian</TableHead>
+                                <TableHead className="font-bold md:text-lg text-xs text-center">Kejadian di <span className='text-blue-400'>{dataTitle?.ruang}</span> oleh <span className='text-amber-500'>{dataTitle?.supervisi}</span>{dataTitle?.kolaborator && ` dan ${dataTitle?.kolaborator}`}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
