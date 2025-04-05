@@ -404,7 +404,7 @@ export default function Page() {
                     </div>
 
                     {/* Input Area */}
-                    <p className="italic text-sm text-red-400">Jika menulis catatan <span className="font-bold">"Tidak ada Complain, Fasilitas yang bermasalah, dan pasienJKN yang lebih dari 6 hari"</span> tidak perlu memilih kategori</p>
+                    <p className="italic text-sm text-red-400">Jika menulis catatan <span className="font-bold">&ldquo;Tidak ada Complain, Fasilitas yang bermasalah, dan pasienJKN yang lebih dari 6 hari&ldquo;</span> tidak perlu memilih kategori</p>
                     <div className="flex gap-2 items-center">
                         <div className="relative w-full">
                             <Textarea
