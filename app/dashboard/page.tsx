@@ -282,6 +282,7 @@ export default function Page() {
     };
     //---------------------------------END---------------------------------
 
+
     return (
         <div className="flex flex-col h-[98vh] w-screen bg-gray-50 p-2 md:p-4">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -403,6 +404,7 @@ export default function Page() {
                     </div>
 
                     {/* Input Area */}
+                    <p className="italic text-sm text-red-400">Jika menulis catatan <span className="font-bold">"Tidak ada Complain, Fasilitas yang bermasalah, dan pasienJKN yang lebih dari 6 hari"</span> tidak perlu memilih kategori</p>
                     <div className="flex gap-2 items-center">
                         <div className="relative w-full">
                             <Textarea
