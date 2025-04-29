@@ -307,7 +307,7 @@ export default function Page() {
                             disabled
                         />
                     </div>
-                    <div className="space-y-1">
+                    <div className="spac2**e-y-1">
                         <Select
                             value={colaborator}
                             onValueChange={(value) => {

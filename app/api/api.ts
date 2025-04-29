@@ -3,7 +3,7 @@
 //import { console } from "inspector";
 
 export async function POST_TOKEN() {
-    const url = 'https://geni.rs-elisabeth.com/authentication/create_token';
+    const url = 'https://latu.rs-elisabeth.com/authentication/create_token';
     
     try {
         const response = await fetch(url, {
@@ -35,7 +35,7 @@ export async function POST_TOKEN() {
 
   
   export async function POST_LOGIN(username:string, password:string) {
-    const url = 'https://geni.rs-elisabeth.com/authentication/login';
+    const url = 'https://latu.rs-elisabeth.com/authentication/login';
     const passwordhash = btoa(password);
    // console.log("hash password",passwordhash);
     const token = await POST_TOKEN();
@@ -66,7 +66,7 @@ export async function POST_TOKEN() {
   }
 
   export async function GET_EMPLOYEE_BY_NIP(nip:string) {
-    const url = `https://geni.rs-elisabeth.com/hr/employee/detail?nip=${nip}`;
+    const url = `https://latu.rs-elisabeth.com/hr/employee/detail?nip=${nip}`;
     const token = await POST_TOKEN();
     
   if (!token) {
