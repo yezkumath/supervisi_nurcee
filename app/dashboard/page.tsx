@@ -51,6 +51,7 @@ export default function Page() {
     const [isCatComplain, setIsCatComplain] = useState(false);
     const [isCatFasilitas, setIsCatFasilitas] = useState(false);
     const [isCatJKN7, setIsCatJKN7] = useState(false);
+    const [isCatLain, setIsCatLain] = useState(false);
 
     const [questions, setQuestions] = useState<{ text: string, cat: string }[]>([]);
 
@@ -171,6 +172,7 @@ export default function Page() {
         setCategory((prev) => (prev === "Complain" ? "" : "Complain"));
         setIsCatFasilitas(false);
         setIsCatJKN7(false);
+        setIsCatLain(false);
     };
 
     const handleFasilitasClick = () => {
@@ -178,12 +180,22 @@ export default function Page() {
         setCategory((prev) => (prev === "Fasilitas" ? "" : "Fasilitas"));
         setIsCatComplain(false);
         setIsCatJKN7(false);
+        setIsCatLain(false);
     };
 
     const handleJKN7Click = () => {
         setIsCatJKN7((prev) => !prev);
         setCategory((prev) => (prev === "JKN7+" ? "" : "JKN7+"));
         setIsCatComplain(false);
+        setIsCatFasilitas(false);
+        setIsCatLain(false);
+    };
+
+    const handleLainClick = () => {
+        setIsCatLain((prev) => !prev);
+        setCategory((prev) => (prev === "Lain-Lain" ? "" : "Lain-Lain"));
+        setIsCatComplain(false);
+        setIsCatJKN7(false);
         setIsCatFasilitas(false);
     };
 
@@ -355,7 +367,7 @@ export default function Page() {
                         <Input
                             type="number"
                             placeholder="Di isi dengan Angka"
-                            className="border-blue-500 focus:ring-2 focus:ring-blue-300"
+                            className="border-yellow-500 focus:ring-2 focus:ring-yellow-300"
                             value={jumlahPasient}
                             onChange={(e) => {
                                 setJumlahPasient(e.target.value);
@@ -367,7 +379,7 @@ export default function Page() {
                         <Input
                             type="number"
                             placeholder="Di isi dengan Angka"
-                            className="border-blue-500 focus:ring-2 focus:ring-blue-300"
+                            className="border-yellow-500 focus:ring-2 focus:ring-yellow-300"
                             value={jumlahPerawat}
                             onChange={(e) => {
                                 setJumlahPerawat(e.target.value);
@@ -384,39 +396,46 @@ export default function Page() {
                     {/* Category Buttons */}
                     <div className="flex flex-wrap gap-2 mb-2">
                         <Button
-                            className={`px-3 py-1 h-auto ${isCatComplain ? "bg-red-500" : "bg-red-400 hover:bg-red-500"}`}
+                            className={`px-3 py-1 h-auto ${isCatComplain ? "bg-red-500" : "bg-red-400 hover:bg-red-500"} text-white font-semibold`}
                             onClick={handleComplainClick}
                         >
                             Complain
                         </Button>
                         <Button
-                            className={`px-3 py-1 h-auto ${isCatFasilitas ? "bg-blue-500" : "bg-blue-400 hover:bg-blue-500"}`}
+                            className={`px-3 py-1 h-auto ${isCatFasilitas ? "bg-blue-500" : "bg-blue-400 hover:bg-blue-500"} text-white font-semibold`}
                             onClick={handleFasilitasClick}
                         >
                             Fasilitas
                         </Button>
                         <Button
-                            className={`px-3 py-1 h-auto ${isCatJKN7 ? "bg-green-500" : "bg-green-400 hover:bg-green-500"}`}
+                            className={`px-3 py-1 h-auto ${isCatJKN7 ? "bg-green-500" : "bg-green-400 hover:bg-green-500"} text-white font-semibold`}
                             onClick={handleJKN7Click}
                         >
                             JKN ≥ 6 Hari
                         </Button>
+                        <Button
+                            className={`px-3 py-1 h-auto ${isCatLain ? "bg-gray-500" : "bg-gray-400 hover:bg-gray-500"} text-white font-semibold`}
+                            onClick={handleLainClick}
+                        >
+                            Lain-Lain
+                        </Button>
                     </div>
 
                     {/* Input Area */}
-                    <p className="italic text-sm text-red-400">Jika menulis catatan <span className="font-bold">&ldquo;Tidak ada Complain, Fasilitas yang bermasalah, dan pasienJKN yang lebih dari 6 hari&ldquo;</span> tidak perlu memilih kategori</p>
+                    {/* <p className="italic text-sm text-red-400">Jika menulis catatan <span className="font-bold">&ldquo;Tidak ada Complain, Fasilitas yang bermasalah, dan pasienJKN yang lebih dari 6 hari&ldquo;</span> tidak perlu memilih kategori</p> */}
                     <div className="flex gap-2 items-center">
                         <div className="relative w-full">
                             <Textarea
                                 className={`border-2 min-h-8 resize-y w-full border-l-8 transition-colors ${isCatComplain ? "border-l-red-400 focus:border-l-red-500" :
                                     isCatFasilitas ? "border-l-blue-400 focus:border-l-blue-500" :
                                         isCatJKN7 ? "border-l-green-400 focus:border-l-green-500" :
-                                            "border-l-gray-300"
+                                            isCatLain ? "border-l-gray-400 focus:border-l-gray-500" : ""
                                     } ${ruang === 'UNIT KERJA LAIN' && input.startsWith('Supervisi di ruangan ') ? "pt-8" : ""}`
                                 }
                                 value={input}
                                 onChange={handleInputChange}
                                 placeholder="Tuliskan kejadian disini..."
+                                disabled={!isCatComplain && !isCatFasilitas && !isCatJKN7 && !isCatLain}
                             />
                             {/* Overlay the styled prefix if condition is met */}
                             {ruang === 'UNIT KERJA LAIN' && input.startsWith('Supervisi di ruangan ') && (
